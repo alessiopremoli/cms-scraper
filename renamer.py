@@ -5,8 +5,10 @@ from pdfminer.converter import TextConverter
 from pdfminer.pdfinterp import PDFPageInterpreter
 from pdfminer.pdfpage import PDFPage
 import re
-from os import listdir, rename
+from os import listdir, rename, environ
 from os.path import isfile, join
+from dotenv import load_dotenv
+
 
 def pdf_to_text(path):
     with open(path, 'rb') as fp:
@@ -21,7 +23,8 @@ def pdf_to_text(path):
     return text.replace('\t', ' ')
 
 
-baseDir = '/Users/alessiopremoli/code/alessiopremoli/alessiopremoli/scripts/cms_scraper/pdf'
+load_dotenv()
+baseDir = environ['BASE_DIR']
 
 pdfs = [f for f in listdir(baseDir) if isfile(join(baseDir, f))]
 
